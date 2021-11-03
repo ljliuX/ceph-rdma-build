@@ -13,10 +13,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: install packages
+      run: apt-get install -y git ninja
+    - name: clone ceph repo
+      run: git clone --recursive https://github.com/ceph/ceph.git
+    - name: run install-deps.sh
+      run: cd ceph && sh install-deps.sh
+    - name: run do_make.sh
+      run: sh do_cmake.sh -DCMAKE_INSTALL_PREFIX=/opt/ceph -DWITH_RDMA=ON
     - name: build
-      run: sh build.sh
+      run: cd build && ninja
+    - name: install
+      run: sudo ninja install
+    - name: package
+      run: tar zcvf ceph-rdma-dist.tar.gz /opt/ceph
     - name: upload
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: ceph-dist
-        path: ceph-rdma.tar.gz
+        name: ceph-rdma-dist
+        path: ceph-rdma-dist.tar.gz
