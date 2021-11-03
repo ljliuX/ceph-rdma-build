@@ -14,7 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install packages
-      run: sudo apt-get install -y git ninja
+      run: sudo apt-get install -y git
+    - name: install ninja
+      uses: turtlesec-no/get-ninja@1.0.0
     - name: clone ceph repo
       run: git clone --recursive https://github.com/ceph/ceph.git
     - name: run install-deps.sh
