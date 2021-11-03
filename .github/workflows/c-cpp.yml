@@ -14,11 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install packages
-      run: apt-get install -y git ninja
+      run: sudo apt-get install -y git ninja
     - name: clone ceph repo
       run: git clone --recursive https://github.com/ceph/ceph.git
     - name: run install-deps.sh
-      run: cd ceph && sh install-deps.sh
+      run: cd ceph && sudo sh install-deps.sh
     - name: run do_make.sh
       run: sh do_cmake.sh -DCMAKE_INSTALL_PREFIX=/opt/ceph -DWITH_RDMA=ON
     - name: build
