@@ -30,7 +30,8 @@ jobs:
 
     - name: run do_make.sh
       run: |
-        sh do_cmake.sh -DCMAKE_INSTALL_PREFIX=/opt/ceph -DWITH_RDMA=ON
+        chmod +x do_cmake.sh
+        ./do_cmake.sh -DCMAKE_INSTALL_PREFIX=/opt/ceph -DWITH_RDMA=ON
 
     - name: build
       run: |
