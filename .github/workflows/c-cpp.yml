@@ -30,16 +30,19 @@ jobs:
 
     - name: run do_make.sh
       run: |
+        cd ceph
         chmod +x do_cmake.sh
         ./do_cmake.sh -DCMAKE_INSTALL_PREFIX=/opt/ceph -DWITH_RDMA=ON
 
     - name: build
       run: |
-        cd build
+        cd ceph/build
         ninja
 
     - name: install
-      run: sudo ninja install
+      run: |
+        cd ceph/build
+        sudo ninja install
 
     - name: package
       run: tar zcvf ceph-rdma-dist.tar.gz /opt/ceph
